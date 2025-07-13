@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class CategoryImpl implements CategoryService {
+public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryMapper categoryMapper;
@@ -41,5 +41,12 @@ public class CategoryImpl implements CategoryService {
     public Category findById(Integer id) {
         Category c = categoryMapper.findById(id);
         return c;
+    }
+
+    //文章更新分類
+    @Override
+    public void update(Category category) {
+        category.setUpdateTime(LocalDateTime.now());
+        categoryMapper.update(category);
     }
 }

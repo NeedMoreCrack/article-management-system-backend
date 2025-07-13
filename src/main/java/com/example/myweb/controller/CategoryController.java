@@ -18,7 +18,7 @@ public class CategoryController {
 
     //新增分類
     @PostMapping
-    public Result add(@RequestBody @Validated Category category){
+    public Result add(@RequestBody @Validated(Category.Add.class) Category category){
         categoryService.add(category);
         return Result.success();
     }
@@ -30,9 +30,17 @@ public class CategoryController {
         return Result.success(cs);
     }
 
+    //以id查詢分類
     @GetMapping("/detail")
     public Result<Category> detail(Integer id){
         Category c = categoryService.findById(id);
         return Result.success(c);
+    }
+
+    //文章更新分類
+    @PutMapping
+    public Result update(@RequestBody @Validated(Category.Update.class) Category category){
+        categoryService.update(category);
+        return Result.success();
     }
 }

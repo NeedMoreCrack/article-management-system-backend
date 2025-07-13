@@ -13,4 +13,7 @@ public interface CategoryService {
 
     //以id查詢分類
     Category findById(Integer id);
+
+    //文章更新分類
+    void update(Category category);
 }
