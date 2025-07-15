@@ -8,3 +8,5 @@ spring:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true #底線命名to駝峰命名
+
+CLOUDINARY_URL: cloudinary://449757555464192:ZUkdSt1y8lBldqJZEkeUIzNlrE4@dsfmt4qaq
