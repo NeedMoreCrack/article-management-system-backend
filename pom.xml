@@ -32,6 +32,13 @@
 
     <dependencies>
 
+        <!-- Redis -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <!-- JUnit -->
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-launcher</artifactId>
@@ -112,7 +119,7 @@
             <optional>true</optional>
         </dependency>
 
-        <!-- 單元測試 -->
+        <!-- SpringBoot單元測試 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
