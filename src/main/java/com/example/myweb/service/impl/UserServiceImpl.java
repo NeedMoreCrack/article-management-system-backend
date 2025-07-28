@@ -29,8 +29,10 @@ public class UserServiceImpl implements UserService {
     //註冊
     @Override
     public void register(String username,String password){
+        log.info("註冊使用者 {}",username);
         String sha256String = ShaUtil.getSHA256(password);
         userMapper.add(username,sha256String);
+        log.info("註冊完畢!");
     }
 
     //更新

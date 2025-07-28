@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/big_event
+    url: jdbc:mysql://172.20.195.253:3306/big_event
     username: root
     password: 321321321
   data:

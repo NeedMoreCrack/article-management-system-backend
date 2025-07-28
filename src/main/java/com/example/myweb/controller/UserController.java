@@ -38,6 +38,7 @@ public class UserController {
         User loginUser = userService.findByUserName(username);
         log.info("登入的使用者資料: {}",loginUser);
         if(loginUser == null){
+            log.info("用戶不存在");
             return Result.error("此用戶不存在");
         }
 
@@ -65,6 +66,7 @@ public class UserController {
         log.info("傳入的值:{} , {}",username,password);
         User u = userService.findByUserName(username);
         if(u == null){
+            log.info("無此使用者 進入註冊");
             userService.register(username,password);
             return Result.success();
         }else{
