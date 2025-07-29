@@ -4,10 +4,12 @@ import com.example.myweb.pojo.Article;
 import com.example.myweb.pojo.PageBean;
 import com.example.myweb.pojo.Result;
 import com.example.myweb.service.ArticleService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/article")
 public class ArticleController {
@@ -28,7 +30,9 @@ public class ArticleController {
             @RequestParam(required = false) Integer categoryId,
             @RequestParam(required = false) String state
     ){
+        log.info("取得文章列表中...");
         PageBean<Article> pb = articleService.list(pageNum,pageSize,categoryId,state);
+        log.info("回傳: {}",pb);
         return Result.success(pb);
     }
 }

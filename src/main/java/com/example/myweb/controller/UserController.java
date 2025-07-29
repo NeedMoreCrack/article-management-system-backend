@@ -83,12 +83,14 @@ public class UserController {
         Map<String,Object> map = ThreadLocalUtil.get();
         String username = (String) map.get("username");
         User user = userService.findByUserName(username);
+        log.info("取得使用者資料: {}",user);
         return Result.success(user);
     }
 
     //更新使用者資料
     @PutMapping("/update")
     public Result update(@RequestBody @Validated User user){
+        log.info("更新使用者資料...");
         userService.update(user);
         return Result.success();
     }
@@ -96,6 +98,7 @@ public class UserController {
     //更新照片
     @PatchMapping("/updateAvatar")
     public Result updateAvatar(@RequestParam @URL String avatarUrl){
+        log.info("更新照片");
         userService.updateAvatar(avatarUrl);
         return Result.success();
     }
@@ -103,6 +106,7 @@ public class UserController {
     //更新密碼
     @PatchMapping("/updatePwd")
     public Result updatePwd(@RequestBody Map<String,String> params,@RequestHeader("Authorization") String token){
+        log.info("更新密碼...");
         String oldPwd = params.get("old_pwd");
         String newPwd = params.get("new_pwd");
         String rePwd = params.get("re_pwd");
@@ -113,10 +117,12 @@ public class UserController {
         Map<String,Object> map = ThreadLocalUtil.get();
         User loginUser = userService.findByUserName((String) map.get("username"));
         if(!loginUser.getPassword().equals(ShaUtil.getSHA256(oldPwd))){
+            log.info("原密碼不正確密碼");
             return Result.error("原密碼不正確");
         }
 
         if (!rePwd.equals(newPwd)) {
+            log.info("新密碼不一致");
             return Result.error("填寫的新密碼不一致");
         }
 

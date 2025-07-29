@@ -22,6 +22,7 @@ public class FileUploadController {
     //圖片上傳
     @PostMapping("/upload")
     public Result<String> upload(@RequestParam("file") MultipartFile file) throws Exception {
+        log.info("圖片上傳...");
         fileUploadService.upload(file);
         return Result.success();
     }
