@@ -21,8 +21,9 @@ public class CategoryController {
     //新增分類
     @PostMapping
     public Result add(@RequestBody @Validated(Category.Add.class) Category category){
-        log.info("新增分類");
+        log.info("新增分類...");
         categoryService.add(category);
+        log.info("新增分類成功");
         return Result.success();
     }
 
@@ -40,14 +41,16 @@ public class CategoryController {
     public Result<Category> detail(Integer id){
         log.info("以ID查詢分類: {}",id);
         Category c = categoryService.findById(id);
+        log.info("以ID查詢成功");
         return Result.success(c);
     }
 
     //文章更新分類
     @PutMapping
     public Result update(@RequestBody @Validated(Category.Update.class) Category category){
-        log.info("列表更新中...");
+        log.info("文章分類列表更新中...");
         categoryService.update(category);
+        log.info("文章分類表更新成功");
         return Result.success();
     }
 }

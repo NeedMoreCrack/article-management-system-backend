@@ -22,7 +22,7 @@ public class CategoryServiceImpl implements CategoryService {
     //新增文章分類
     @Override
     public void add(Category category) {
-        log.info("新增文章");
+        log.info("新增文章分類");
         category.setCreateTime(LocalDateTime.now());
         category.setUpdateTime(LocalDateTime.now());
         Map<String,Object> map = ThreadLocalUtil.get();

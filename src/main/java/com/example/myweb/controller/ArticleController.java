@@ -19,7 +19,9 @@ public class ArticleController {
 
     @PostMapping
     public Result add(@RequestBody @Validated Article article){
+        log.info("新增文章");
         articleService.add(article);
+        log.info("新增文章成功");
         return Result.success();
     }
 
@@ -32,7 +34,8 @@ public class ArticleController {
     ){
         log.info("取得文章列表中...");
         PageBean<Article> pb = articleService.list(pageNum,pageSize,categoryId,state);
-        log.info("回傳: {}",pb);
+        log.info("查詢成功");
+        log.info("回傳文章列表: {}",pb);
         return Result.success(pb);
     }
 }
