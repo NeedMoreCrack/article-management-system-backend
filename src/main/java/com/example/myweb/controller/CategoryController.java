@@ -48,9 +48,20 @@ public class CategoryController {
     //文章更新分類
     @PutMapping
     public Result update(@RequestBody @Validated(Category.Update.class) Category category){
+        log.info("傳入參數: {}, {}, {}",category.getId(),category.getCategoryName(),category.getCategoryAlias());
         log.info("文章分類列表更新中...");
         categoryService.update(category);
         log.info("文章分類表更新成功");
+        return Result.success();
+    }
+
+    //根據id刪除文章分類
+    @DeleteMapping
+    public Result delete(Integer id){
+        log.info("刪除文章分類");
+        log.info("要刪除的文章id: {}",id);
+        categoryService.delete(id);
+        log.info("刪除成功");
         return Result.success();
     }
 }

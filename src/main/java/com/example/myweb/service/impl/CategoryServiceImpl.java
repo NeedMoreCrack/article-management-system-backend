@@ -44,7 +44,6 @@ public class CategoryServiceImpl implements CategoryService {
     //以id查詢分類
     @Override
     public Category findById(Integer id) {
-        log.info("以ID查詢分類: {}",id);
         Category c = categoryMapper.findById(id);
         return c;
     }
@@ -55,5 +54,10 @@ public class CategoryServiceImpl implements CategoryService {
         log.info("更新文章分類");
         category.setUpdateTime(LocalDateTime.now());
         categoryMapper.update(category);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        categoryMapper.delete(id);
     }
 }

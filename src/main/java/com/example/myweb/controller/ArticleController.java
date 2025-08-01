@@ -32,6 +32,7 @@ public class ArticleController {
             @RequestParam(required = false) Integer categoryId,
             @RequestParam(required = false) String state
     ){
+        log.info("參數: {}, {}, {}, {}",pageNum,pageSize,categoryId,state);
         log.info("取得文章列表中...");
         PageBean<Article> pb = articleService.list(pageNum,pageSize,categoryId,state);
         log.info("查詢成功");
