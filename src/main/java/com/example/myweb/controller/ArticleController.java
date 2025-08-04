@@ -17,6 +17,7 @@ public class ArticleController {
     @Autowired
     private ArticleService articleService;
 
+    //新增文章
     @PostMapping
     public Result add(@RequestBody @Validated Article article){
         log.info("新增文章");
@@ -25,6 +26,7 @@ public class ArticleController {
         return Result.success();
     }
 
+    //取得文章列表
     @GetMapping
     public Result<PageBean<Article>> list(
             Integer pageNum,
@@ -38,5 +40,22 @@ public class ArticleController {
         log.info("查詢成功");
         log.info("回傳文章列表: {}",pb);
         return Result.success(pb);
+    }
+
+    //修改文章
+    @PutMapping
+    public Result edit(@RequestBody @Validated Article article){
+        log.info("修改文章");
+        articleService.edit(article);
+        log.info("修改文章成功");
+        return Result.success();
+    }
+
+    //刪除文章
+    @DeleteMapping
+    public Result delete(@RequestParam Integer deleteId){
+        log.info("傳入的刪除id: {}",deleteId);
+        articleService.delete(deleteId);
+        return Result.success();
     }
 }

@@ -6,6 +6,7 @@ import com.example.myweb.service.UserService;
 import com.example.myweb.utils.JwtUtil;
 import com.example.myweb.utils.ShaUtil;
 import com.example.myweb.utils.ThreadLocalUtil;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.constraints.Pattern;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.validator.constraints.URL;
@@ -60,6 +61,27 @@ public class UserController {
         return Result.error("密碼錯誤");
     }
 
+    //登出
+    @PostMapping("/logout")
+    public Result<String> logout(HttpServletRequest request){
+        String authHeader = request.getHeader("Authorization");
+        log.info("收到的 Authorization header: {}", authHeader);
+        if(authHeader == null || authHeader.isEmpty()){
+            return Result.error("請提供有效的 token");
+        }
+        String token = authHeader;
+        log.info("準備登出，移除 Redis 中的 token：{}", token);
+        // 刪除 Redis 中的 token
+        Boolean deleted = stringRedisTemplate.delete(token);
+        if(deleted){
+            log.info("登出成功");
+            return Result.success("登出成功");
+        }else{
+            log.info("登出失敗");
+            return Result.error("Token 無效或已過期");
+        }
+    }
+
     //註冊
     @PostMapping("/register")
     public Result<String> register(@Pattern(regexp = "^\\S{5,16}$") String username,@Pattern(regexp = "^\\S{5,16}$") String password){
@@ -76,7 +98,7 @@ public class UserController {
 
     //取得使用者資料
     @GetMapping("/userInfo")
-    public Result<User> userInfo(@RequestHeader(name = "Authorization") String token){
+    public Result<User> userInfo(@RequestHeader(name = "Authorization")String token){
 //        Map<String, Object> map = JwtUtil.parseToken(token);
 //        log.info("claims= {}",map);
 //        String username = (String)map.get("username");
@@ -90,6 +112,7 @@ public class UserController {
     //更新使用者資料
     @PutMapping("/update")
     public Result update(@RequestBody @Validated User user){
+        log.info("傳入的參數: {}",user);
         log.info("更新使用者資料...");
         userService.update(user);
         return Result.success();

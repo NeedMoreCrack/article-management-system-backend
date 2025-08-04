@@ -7,6 +7,7 @@ import com.example.myweb.service.ArticleService;
 import com.example.myweb.utils.ThreadLocalUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Service
 public class ArticleServiceImpl implements ArticleService {
 
@@ -50,5 +52,23 @@ public class ArticleServiceImpl implements ArticleService {
         pb.setTotal(p.getTotal());
         pb.setItems(p.getResult());
         return pb;
+    }
+
+    //修改文章
+    @Override
+    public void edit(Article article) {
+        article.setUpdateTime(LocalDateTime.now());
+        log.info("取得ID: {}",article.getId());
+        log.info("取得標題: {}",article.getTitle());
+        log.info("取得內容: {}",article.getContent());
+        log.info("取得發佈狀態: {}",article.getState());
+        log.info("取得封面圖URL: {}",article.getCoverImg());
+        articleMapper.edit(article);
+    }
+
+    //依id刪除文章
+    @Override
+    public void delete(Integer deleteId) {
+        articleMapper.delete(deleteId);
     }
 }
